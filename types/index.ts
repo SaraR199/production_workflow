@@ -40,7 +40,8 @@ export interface Task {
   // Deadlines and scheduling
   createdAt: string; // ISO date string
   updatedAt: string;
-  deadline?: string; // ISO date string
+  startDate?: string; // ISO date string - when task should start
+  deadline?: string; // ISO date string - when task should end
   estimatedHours?: number;
   actualHours?: number;
 
@@ -125,4 +126,36 @@ export interface DataStore {
   metrics: ProgressMetrics[];
   version: string;
   lastUpdated: string;
+}
+
+// View types
+export type ViewMode = 'dashboard' | 'calendar' | 'gantt' | 'list';
+
+// Calendar event type for react-big-calendar
+export interface CalendarEvent {
+  id: string;
+  title: string;
+  start: Date;
+  end: Date;
+  resource: Task;
+  allDay?: boolean;
+}
+
+// Gantt task type for gantt-task-react
+export interface GanttTask {
+  id: string;
+  name: string;
+  start: Date;
+  end: Date;
+  progress: number;
+  type: 'task' | 'milestone' | 'project';
+  dependencies?: string[];
+  styles?: {
+    backgroundColor?: string;
+    backgroundSelectedColor?: string;
+    progressColor?: string;
+    progressSelectedColor?: string;
+  };
+  project?: string;
+  isDisabled?: boolean;
 }
